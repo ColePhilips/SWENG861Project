@@ -1,0 +1,162 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "TODO API",
+    "version": "1.0.0",
+    "description": "API for managing TODO tasks"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+  "paths": {
+    "/Tasks": {
+      "get": {
+        "summary": "Get all TODOs",
+        "responses": {
+          "200": {
+            "description": "A list of TODOs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Todo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new TODO",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Todo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "TODO created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Tasks/{id}": {
+      "get": {
+        "summary": "Get a TODO by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the TODO",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single TODO",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "TODO not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a TODO by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the TODO",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Todo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "TODO updated"
+          },
+          "404": {
+            "description": "TODO not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a TODO by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the TODO",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "TODO deleted"
+          },
+          "404": {
+            "description": "TODO not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Todo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "60d5ec49f1b2c8b1f8e4e1a1"
+          },
+          "Task": {
+            "type": "string",
+            "example": "Buy groceries"
+          }
+        }
+      }
+    }
+  }
+}
