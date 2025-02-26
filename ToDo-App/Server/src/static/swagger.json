@@ -22,7 +22,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Todo"
+                    "$ref": "#/definitions/Task"
                   }
                 }
               }
@@ -37,7 +37,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Todo"
+                "$ref": "#/definitions/Task"
               }
             }
           }
@@ -48,7 +48,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Todo"
+                  "$ref": "#/definitions/Task"
                 }
               }
             }
@@ -76,7 +76,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Todo"
+                  "$ref": "#/definitions/Task"
                 }
               }
             }
@@ -104,7 +104,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Todo"
+                "$ref": "#/definitions/Task"
               }
             }
           }
@@ -142,21 +142,18 @@
       }
     }
   },
-  "components": {
-    "schemas": {
-      "Todo": {
+  "definitions": {
+      "Task": {
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "example": "60d5ec49f1b2c8b1f8e4e1a1"
+            "type": "integer"
           },
           "Task": {
-            "type": "string",
-            "example": "Buy groceries"
+            "type": "string"
           }
-        }
+        },
+        "required": ["id", "Task"]
       }
     }
-  }
 }

@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 from flask_restful import Api, Resource
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_cors import CORS
-from bson.objectid import ObjectId
+#from bson.objectid import ObjectId
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -28,18 +28,20 @@ class Task(Resource):
     def post(self):
         data = request.get_json()
         task_description = data.get("Task")
+        insert_id = data.get("id")
         
         if not task_description:
             return {"message": "Task description is required!"}, 400
         
         # Insert task into the database
         task = {
+            "id": insert_id,
             "Task": task_description
         }
-        result = mongo.db.Tasks.insert_one(task)
+        mongo.db.Tasks.insert_one(task)
         
         return jsonify({
-            "id": str(result.inserted_id),
+            "id": insert_id,
             "Task": task_description
         })
 
@@ -50,14 +52,14 @@ class Task(Resource):
             tasks = mongo.db.Tasks.find()
             result = []
             for task in tasks:
-                result.append({"id": str(task["_id"]), "Task": task["Task"]})
+                result.append({"id": task["id"], "Task": task["Task"]})
             return jsonify(result)
         else:
             # Fetch a specific task by ID
-            task = mongo.db.Tasks.find_one({"_id": ObjectId(task_id)})
+            task = mongo.db.Tasks.find_one({"id": int(task_id)})
             if not task:
                 return {"message": "Task not found"}, 404
-            return jsonify({"id": str(task["_id"]), "Task": task["Task"]})
+            return jsonify({"id": task["id"], "Task": task["Task"]})
 
     # Update: PUT /Tasks/<id>
     def put(self, task_id):
@@ -68,7 +70,7 @@ class Task(Resource):
             return {"message": "Task description is required!"}, 400
         
         result = mongo.db.Tasks.update_one(
-            {"_id": ObjectId(task_id)},
+            {"id": int(task_id)},
             {"$set": {"Task": task_description}}
         )
         
@@ -82,7 +84,7 @@ class Task(Resource):
 
     # Delete: DELETE /Tasks/<id>
     def delete(self, task_id):
-        result = mongo.db.Tasks.delete_one({"_id": ObjectId(task_id)})
+        result = mongo.db.Tasks.delete_one({"id": int(task_id)})
         if result.deleted_count == 0:
             return {"message": "Task not found!"}, 404
         return {"message": "Task deleted successfully!"}, 200
