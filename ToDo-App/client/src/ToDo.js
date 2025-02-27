@@ -1,7 +1,7 @@
 // src/ToDo.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import Spinner from './Spinner'; // Import Spinner component
 
 const ToDo = () => {
   const [tasks, setTasks] = useState([]);
@@ -50,10 +50,14 @@ const ToDo = () => {
     deleteTask(id); // Delete the task after completion
   };
 
+  // Handle spinning
+  const handleSpin = () => {
+    setPoints(points - 1); // Deduct points for spinning
+  };
+
   useEffect(() => {
     fetchTasks(); // Fetch tasks on component mount
   }, []);
-
 
   return (
     <div>
@@ -66,6 +70,7 @@ const ToDo = () => {
       />
       <button onClick={addTask}>Add Task</button>
       <h2>Your Points: {points}</h2>
+      <Spinner points={points} onSpin={handleSpin} />
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>

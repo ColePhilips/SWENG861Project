@@ -88,9 +88,20 @@ class Task(Resource):
         if result.deleted_count == 0:
             return {"message": "Task not found!"}, 404
         return {"message": "Task deleted successfully!"}, 200
+    
+class Monster(Resource):
+    # Read: GET /Monsters
+    def get(self):
+        # Fetch all monsters from the mhw_db database
+        monsters = mongo.cx['mhw_db']['monsters'].find()
+        result = []
+        for monster in monsters:
+            result.append({"id": monster.get("id"), "name": monster.get("name")})  # Adjust based on your monster document structure
+        return jsonify(result)
 
-# Set up the routes for the Task resource
+# Set up the routes for the Task and Monster resources
 api.add_resource(Task, "/Tasks", "/Tasks/<string:task_id>")
+api.add_resource(Monster, "/Monsters")  # New route for monsters
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

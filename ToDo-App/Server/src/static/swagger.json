@@ -140,6 +140,26 @@
           }
         }
       }
+    },
+    "/Monsters": {
+      "get": {
+        "summary": "Get all Monsters",
+        "responses": {
+          "200": {
+            "description": "A list of Monsters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Monster"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -154,6 +174,18 @@
           }
         },
         "required": ["id", "Task"]
+      },
+        "Monster": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "name"]
       }
     }
 }
