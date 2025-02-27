@@ -1,7 +1,7 @@
 // src/ToDo.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Auth } from 'aws-amplify';
+//import { Auth } from 'aws-amplify';
 
 const ToDo = () => {
   const [tasks, setTasks] = useState([]);
@@ -54,19 +54,18 @@ const ToDo = () => {
     fetchTasks(); // Fetch tasks on component mount
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await Auth.signOut();
-      window.location.href = '/'; // Redirect to login page
-    } catch (error) {
-      console.error('Error signing out', error);
-    }
-  };
+  //const handleLogout = async () => {
+  //  try {
+  //    await Auth.signOut();
+  //    window.location.href = '/'; // Redirect to login page
+  //  } catch (error) {
+  //    console.error('Error signing out', error);
+  //  }
+  //};
 
   return (
     <div>
       <h1>To-Do List</h1>
-      <button onClick={handleLogout}>Logout</button>
       <input
         type="text"
         value={newTask}

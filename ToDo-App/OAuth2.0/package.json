@@ -1,0 +1,31 @@
+{
+  "name": "oauth",
+  "version": "1.0.0",
+  "description": "$ git clone https://github.com/Ugyenwangdi/OAuth.git",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ugyenwangdi/OAuth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ugyenwangdi/OAuth/issues"
+  },
+  "homepage": "https://github.com/Ugyenwangdi/OAuth#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.9.5",
+    "mongoose-findorcreate": "^4.0.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
+  }
+}
