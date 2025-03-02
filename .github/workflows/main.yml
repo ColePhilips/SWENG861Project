@@ -1,0 +1,77 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch if it's not 'main'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'  # Specify your Python version
+
+      - name: Remove existing virtual environment (if any)
+        run: |
+          cd ToDo-App/Server/src
+          if [ -d venv ]; then
+            rm -rf venv  # Remove the existing virtual environment
+          fi
+
+      - name: Create and activate virtual environment
+        run: |
+          cd ToDo-App/Server/src
+          python -m venv venv  # Create a new virtual environment
+          source venv/bin/activate
+          pip install --upgrade pip  # Upgrade pip to the latest version
+          pip install -r requirements.txt  # Ensure pytest is included here
+
+      - name: Change to application directory
+        run: |
+          cd ToDo-App/client
+          npm install
+          cd ..
+          npm install  # Install Node.js dependencies
+
+      - name: Run tests
+        run: |
+          cd ToDo-App/Server/src
+          source venv/bin/activate  # Activate the virtual environment
+          python test_api.py  # Run your test script
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_and_test  # Ensure this job runs after the test job
+    if: success()  # Only run if the test job was successful
+
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to EC2
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST << 'EOF'
+            cd ~/SWENG861Project/ToDo-app
+            git pull origin main  # Pull the latest changes
+            source venv/bin/activate  # Activate the virtual environment
+            npm install  # Install Node.js dependencies
+            cd ToDo-App/client
+            npm install  # Install Node.js dependencies
+            cd ToDo-App/Server/src
+            pip install -r requirements.txt  # Ensure pytest is included here
+            sudo systemctl restart myapp.service  # Restart the systemd service
+          EOF
