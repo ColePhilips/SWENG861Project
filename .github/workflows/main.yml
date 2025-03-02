@@ -51,8 +51,9 @@ jobs:
       - name: Activate virtual environment and run tests
         run: |
           cd ToDo-App/Server/src
+          echo "Activate virtual environment"
           source venv/bin/activate  # Activate the virtual environment
-          python test_api.py  # Run your test script
+          python -m pytest test_api.py  # Run your test script
 
   deploy:
     runs-on: ubuntu-latest
