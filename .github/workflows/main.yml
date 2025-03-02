@@ -20,14 +20,14 @@ jobs:
 
       - name: Remove existing virtual environment (if any)
         run: |
-          cd ToDo-app/Server/src
+          cd ToDo-App/Server/src
           if [ -d venv ]; then
             rm -rf venv  # Remove the existing virtual environment
           fi
 
       - name: Create and activate virtual environment
         run: |
-          cd ToDo-app/Server/src
+          cd ToDo-App/Server/src
           python -m venv venv  # Create a new virtual environment
           source venv/bin/activate
           pip install --upgrade pip  # Upgrade pip to the latest version
@@ -35,9 +35,9 @@ jobs:
 
       - name: Change to application directory
         run: |
-          cd ToDo-app/client
+          cd ToDo-App/client
           npm install
-          cd ToDo-app
+          cd ToDo-App
           npm install  # Install Node.js dependencies
 
   test:
@@ -50,7 +50,7 @@ jobs:
 
       - name: Activate virtual environment and run tests
         run: |
-          cd ToDo-app/Server/src
+          cd ToDo-App/Server/src
           source venv/bin/activate  # Activate the virtual environment
           python src/test_api.py  # Run your test script
 
@@ -77,9 +77,9 @@ jobs:
             git pull origin main  # Pull the latest changes
             source venv/bin/activate  # Activate the virtual environment
             npm install  # Install Node.js dependencies
-            cd ToDo-app/client
+            cd ToDo-App/client
             npm install  # Install Node.js dependencies
-            cd ToDo-app/Server/src
+            cd ToDo-App/Server/src
             pip install -r requirements.txt  # Ensure pytest is included here
             sudo systemctl restart myapp.service  # Restart the systemd service
           EOF
