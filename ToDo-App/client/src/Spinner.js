@@ -11,7 +11,7 @@ const Spinner = ({ points, onSpin }) => {
   useEffect(() => {
     const fetchMonsters = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/Monsters');
+        const response = await axios.get('http://34.227.109.255:5000/Monsters');
         setMonsters(response.data);
       } catch (error) {
         console.error('Error fetching monsters:', error);

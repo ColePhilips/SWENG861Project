@@ -11,7 +11,7 @@ const ToDo = () => {
   // Fetch tasks from the API
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/Tasks');
+      const response = await axios.get('http://34.227.109.255:5000/Tasks');
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -26,7 +26,7 @@ const ToDo = () => {
     const task = { id: taskId, Task: newTask };
 
     try {
-      await axios.post('http://localhost:5000/Tasks', task);
+      await axios.post('http://34.227.109.255:5000/Tasks', task);
       setNewTask('');
       fetchTasks(); // Refresh the task list
     } catch (error) {
@@ -37,7 +37,7 @@ const ToDo = () => {
   // Delete a task
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/Tasks/${id}`);
+      await axios.delete(`http://34.227.109.255:5000/Tasks/${id}`);
       fetchTasks(); // Refresh the task list
     } catch (error) {
       console.error('Error deleting task:', error);
