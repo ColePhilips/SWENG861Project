@@ -1,0 +1,7 @@
+pytest
+flask
+flask_pymongo
+flask_restful
+flask_swagger_ui
+flask_cors
+# Add other dependencies here
