@@ -52,7 +52,7 @@ jobs:
         run: |
           cd ToDo-App/Server/src
           source venv/bin/activate  # Activate the virtual environment
-          python src/test_api.py  # Run your test script
+          python test_api.py  # Run your test script
 
   deploy:
     runs-on: ubuntu-latest
