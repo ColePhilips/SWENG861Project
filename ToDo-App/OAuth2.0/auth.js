@@ -33,7 +33,7 @@ mongoose.set("strictQuery", true);
 main().catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/testDB"); 
+    await mongoose.connect("mongodb+srv://ColePhilips:MongoDBDragon22!@monsterhunterdb.3kgwi.mongodb.net/testDB?retryWrites=true&w=majority&appName=MonsterHunterDB"); 
 };
 
 app.use(passport.initialize()); //initialize passport
@@ -43,7 +43,7 @@ app.use(passport.session()); //use of passport
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3001/" //This will be changed to the web application URL so when the user is done authenticating this will be there endpoint, will also need to be updated on google site
+    callbackURL: "http://34.227.109.255:3001/" //This will be changed to the web application URL so when the user is done authenticating this will be there endpoint, will also need to be updated on google site
   },
   //Callback function to find pre-existing info for user
   function(accessToken, refreshToken, profile, cb) {

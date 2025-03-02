@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "scripts": {
+    "start": "concurrently \"node client/src/App.js\" \"node OAuth2.0/auth.js\" \"python Server/src/api.py\""
+  }
+}
