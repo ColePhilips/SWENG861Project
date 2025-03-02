@@ -4,6 +4,7 @@
   "description": "$ git clone https://github.com/Ugyenwangdi/OAuth.git",
   "main": "app.js",
   "scripts": {
+    "start": "node auth.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

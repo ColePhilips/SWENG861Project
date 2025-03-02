@@ -2,7 +2,7 @@
   "devDependencies": {
     "concurrently": "^9.1.2"
   },
-  "scripts": {
+"scripts": {
     "start": "concurrently \"npm start --prefix client\" \"npm start --prefix OAuth2.0\" \"python Server/src/api.py\""
   }
 }
