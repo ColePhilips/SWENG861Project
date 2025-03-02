@@ -1,8 +1,8 @@
 {
+  "scripts": {
+    "start": "concurrently \"npm start --prefix client\" \"python Server/src/api.py\""
+  },
   "devDependencies": {
     "concurrently": "^9.1.2"
-  },
-"scripts": {
-    "start": "concurrently \"npm start --prefix client\" \"python Server/src/api.py\""
   }
 }
