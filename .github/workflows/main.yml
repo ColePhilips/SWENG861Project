@@ -6,7 +6,7 @@ on:
       - main  # Change this to your default branch if it's not 'main'
 
 jobs:
-  setup:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -40,24 +40,14 @@ jobs:
           cd ..
           npm install  # Install Node.js dependencies
 
-  test:
-    runs-on: ubuntu-latest
-    needs: setup  # Ensure this job runs after the setup job
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Activate virtual environment and run tests
+      - name: Run tests
         run: |
           cd ToDo-App/Server/src
-          echo "Activate virtual environment"
-          source venv/bin/activate  # Activate the virtual environment
-          python -m pytest test_api.py  # Run your test script
+          python test_api.py  # Run your test script
 
   deploy:
     runs-on: ubuntu-latest
-    needs: test  # Ensure this job runs after the test job
+    needs: build_and_test  # Ensure this job runs after the test job
     if: success()  # Only run if the test job was successful
 
     env:
